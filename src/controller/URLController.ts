@@ -39,4 +39,9 @@ export class URLController {
 
         res.status(400).json({ error: 'URL not found' });
     }
+
+    public async getAllURLs(req: Request, res: Response): Promise<void> {
+        const urls = await URLModel.find({}, { shortURL: 1 });
+        res.json(urls);
+    }
 }
