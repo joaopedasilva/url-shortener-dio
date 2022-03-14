@@ -44,4 +44,19 @@ export class URLController {
         const urls = await URLModel.find({}, { shortURL: 1 });
         res.json(urls);
     }
+
+    public async delURL(req: Request, res: Response): Promise<void> {
+        const { shortURL } = req.body;
+        try {
+            const url = await URLModel.findOne({ shortURL });
+            if (url) {
+                await URLModel.deleteOne({ shortURL });
+                res.json({ status: 'Successfully deleted' });
+            } else {
+                res.status(400).json({ error: 'URL not found' });
+            }
+        } catch (err) {
+            res.status(500).json({ error: 'Internal error' });
+        }
+    }
 }

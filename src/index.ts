@@ -11,6 +11,7 @@ database.connect();
 const urlController = new URLController();
 api.post('/shorten', urlController.shorten);
 api.get('/urls', urlController.getAllURLs);
+api.delete('/del', urlController.delURL);
 api.get('/:hash', urlController.redirect);
 
 api.listen(5000, () => console.log('Express listening.'));
